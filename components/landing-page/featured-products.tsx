@@ -2,10 +2,12 @@ import { ArrowRightIcon, StarIcon } from "lucide-react";
 import SectionHeader from "../common/section-header";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { featuredProducts } from "@/data/products-data";
+// import { featuredProducts } from "@/data/products-data";
 import ProductCard from "../products/product-card";
+import { getFeaturedProducts } from "@/lib/products/product-select";
 
-export default function FeaturedProducts() {
+export default async function FeaturedProducts() {
+  const featuredProducts = await getFeaturedProducts();
   return (
     <div className="py-20 bg-muted/20">
       <div className="wrapper">
