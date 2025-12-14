@@ -1,10 +1,12 @@
 import { Calendar, RocketIcon } from "lucide-react";
 import SectionHeader from "../common/section-header";
 import ProductCard from "../products/product-card";
-import { recentlyLaunchedProducts } from "@/data/products-data";
+// import { recentlyLaunchedProducts } from "@/data/products-data";
 import EmptyState from "../common/empty-state";
+import { getRecentlyLaunchedProducts } from "@/lib/products/product-select";
 
-export default function RecentlyLaunchedProduct() {
+export default async function RecentlyLaunchedProduct() {
+  const recentlyLaunchedProducts = await getRecentlyLaunchedProducts();
   return (
     <div className="py-20">
       <div className="wrapper space-y-12">
@@ -22,7 +24,7 @@ export default function RecentlyLaunchedProduct() {
           </div>
         ) : (
           <EmptyState
-            message="No prducts launched in the last 24 hours. Check back soon for new launches!"
+            message="No prducts launched in the last week. Check back soon for new launches!"
             icon={Calendar}
           />
         )}
