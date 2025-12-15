@@ -12,6 +12,7 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { products } from "@/db/schema";
 import { InferSelectModel } from "drizzle-orm";
+import VotingButton from "./voting-button";
 
 // interface ProductProps {
 //   id?: number;
@@ -26,6 +27,7 @@ type product = InferSelectModel<typeof products>;
 
 export default function ProductCard({ product }: { product: product }) {
   const hasVoted = false;
+
   return (
     <Link href={`/product/${product.id}`}>
       <Card className="group card-hover hover:bg-primary-foreground/10 border-solid border-gray-400 h-full">
@@ -46,35 +48,11 @@ export default function ProductCard({ product }: { product: product }) {
             </div>
 
             {/* Voting button */}
-            <div className="flex flex-col items-center gap-1 shrink-0">
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                className={cn(
-                  "h-8 w-8 text-primary",
-                  hasVoted
-                    ? "bg-primary/10 text-primary hover:bg-primary/20"
-                    : "hover:bg-primary/10 hover:text-primary"
-                )}
-              >
-                <ChevronUpIcon className="size-5" />
-              </Button>
-              <span className="text-sm font-semibold transition-colors text-foreground">
-                {product.voteCount}
-              </span>
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                className={cn(
-                  "h-8 w-8 text-primary",
-                  hasVoted
-                    ? "hover:text-destructive"
-                    : "opacity-50 cursor-not-allowed"
-                )}
-              >
-                <ChevronDownIcon className="size-5" />
-              </Button>
-            </div>
+            <VotingButton
+              voteCount={product.voteCount}
+              hasVoted={hasVoted}
+              productId={product.id}
+            />
           </div>
         </CardHeader>
 
