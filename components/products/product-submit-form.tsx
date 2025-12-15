@@ -25,6 +25,8 @@ export default function ProductSubmitForm() {
 
   console.log(state);
 
+  const { errors, message, success } = state;
+
   // const handleSubmit = async (formData: FormData) => {
   //   await addProduct(formData);
   // };
@@ -38,7 +40,7 @@ export default function ProductSubmitForm() {
         placeholder="My Awesome Product"
         required
         onChange={() => {}}
-        error=""
+        error={errors?.name}
       />
       <FormField
         label="Slug"
@@ -47,7 +49,7 @@ export default function ProductSubmitForm() {
         placeholder="my-awesome-product"
         required
         onChange={() => {}}
-        error=""
+        error={errors?.slug}
         helperText="URL-friendly version of your product name"
       />
       <FormField
@@ -57,7 +59,7 @@ export default function ProductSubmitForm() {
         placeholder="A brief, catchy description"
         required
         onChange={() => {}}
-        error=" "
+        error={errors?.tagline}
       />
 
       <FormField
@@ -67,7 +69,7 @@ export default function ProductSubmitForm() {
         placeholder="Tell us more about your product..."
         required
         onChange={() => {}}
-        error=""
+        error={errors?.description}
         textarea
       />
 
@@ -78,7 +80,7 @@ export default function ProductSubmitForm() {
         placeholder="https://yourproduct.com"
         required
         onChange={() => {}}
-        error=" "
+        error={errors?.websiteUrl}
         helperText="Enter your product's website or landing page"
       />
       <FormField
@@ -88,7 +90,7 @@ export default function ProductSubmitForm() {
         placeholder="AI, Productivity, SaaS"
         required
         onChange={() => {}}
-        error=" "
+        error={errors?.tags}
         helperText="Comma-separated tags (e.g., AI, SaaS, Productivity)"
       />
       <Button type="submit">
