@@ -1,16 +1,36 @@
 "use client";
-import { SparkleIcon } from "lucide-react";
+import { Loader2Icon, SparkleIcon } from "lucide-react";
 import { FormField } from "../forms/form-field";
 import { Button } from "../ui/button";
-import { addProduct } from "@/lib/products/product-action";
+import { addProductAction } from "@/lib/products/product-action";
+import { useActionState } from "react";
+
+const initialState = {
+  succes: false,
+  error: {},
+  message: "",
+};
+
+type FormState = {
+  success: boolean;
+  error?: Record<string, string[]>;
+  message: string;
+};
 
 export default function ProductSubmitForm() {
-  const handleSubmit = async (formData: FormData) => {
-    await addProduct(formData);
-  };
+  const [state, formAction, isPending] = useActionState<FormState>(
+    addProductAction,
+    initialState
+  );
+
+  console.log(state);
+
+  // const handleSubmit = async (formData: FormData) => {
+  //   await addProduct(formData);
+  // };
 
   return (
-    <form className="space-y-6 flex flex-col gap-4" action={handleSubmit}>
+    <form className="space-y-6 flex flex-col gap-2" action={formAction}>
       <FormField
         label="ProductName"
         name="name"
@@ -72,7 +92,14 @@ export default function ProductSubmitForm() {
         helperText="Comma-separated tags (e.g., AI, SaaS, Productivity)"
       />
       <Button type="submit">
-        <SparkleIcon className="size-4" /> Submit Product
+        {isPending ? (
+          <Loader2Icon className="size-4 animate-spin" />
+        ) : (
+          <>
+            {" "}
+            <SparkleIcon className="size-4" /> Submit Product
+          </>
+        )}
       </Button>
     </form>
   );
