@@ -6,19 +6,19 @@ import { addProductAction } from "@/lib/products/product-action";
 import { useActionState } from "react";
 
 const initialState = {
-  succes: false,
-  error: {},
+  success: false,
+  errors: {},
   message: "",
 };
 
 type FormState = {
   success: boolean;
-  error?: Record<string, string[]>;
+  errors?: Record<string, string[]>;
   message: string;
 };
 
 export default function ProductSubmitForm() {
-  const [state, formAction, isPending] = useActionState<FormState>(
+  const [state, formAction, isPending] = useActionState<FormState, FormData>(
     addProductAction,
     initialState
   );
@@ -40,7 +40,7 @@ export default function ProductSubmitForm() {
         placeholder="My Awesome Product"
         required
         onChange={() => {}}
-        error={errors?.name}
+        error={errors?.name?.[0] ?? null}
       />
       <FormField
         label="Slug"
@@ -49,7 +49,7 @@ export default function ProductSubmitForm() {
         placeholder="my-awesome-product"
         required
         onChange={() => {}}
-        error={errors?.slug}
+        error={errors?.slug?.[0] ?? null}
         helperText="URL-friendly version of your product name"
       />
       <FormField
@@ -59,7 +59,7 @@ export default function ProductSubmitForm() {
         placeholder="A brief, catchy description"
         required
         onChange={() => {}}
-        error={errors?.tagline}
+        error={errors?.tagline?.[0] ?? null}
       />
 
       <FormField
@@ -69,7 +69,7 @@ export default function ProductSubmitForm() {
         placeholder="Tell us more about your product..."
         required
         onChange={() => {}}
-        error={errors?.description}
+        error={errors?.description?.[0] ?? null}
         textarea
       />
 
@@ -80,7 +80,7 @@ export default function ProductSubmitForm() {
         placeholder="https://yourproduct.com"
         required
         onChange={() => {}}
-        error={errors?.websiteUrl}
+        error={errors?.websiteUrl?.[0] ?? null}
         helperText="Enter your product's website or landing page"
       />
       <FormField
@@ -90,7 +90,7 @@ export default function ProductSubmitForm() {
         placeholder="AI, Productivity, SaaS"
         required
         onChange={() => {}}
-        error={errors?.tags}
+        error={errors?.tags?.[0] ?? null}
         helperText="Comma-separated tags (e.g., AI, SaaS, Productivity)"
       />
       <Button type="submit">

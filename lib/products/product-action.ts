@@ -4,29 +4,36 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { productSchema } from "./product-validation";
 import { db } from "@/db";
 import { products } from "@/db/schema";
-import z from "zod";
+import z, { success } from "zod";
 
 type FormState = {
   success: boolean;
-  error?: Record<string, string[]>;
+  errors?: Record<string, string[]>;
   message: string;
 };
 
 export const addProductAction = async (
   prevState: FormState,
   formData: FormData
-) => {
+): Promise<FormState> => {
   console.log(formData);
 
   // Auth
 
   try {
-    const { userId } = await auth();
+    const { userId, orgId } = await auth();
 
     if (!userId) {
       return {
         success: false,
         message: "You must be signed in to submit a product",
+      };
+    }
+
+    if (!orgId) {
+      return {
+        success: false,
+        message: "You must be a member of an organization to submit a product",
       };
     }
 
@@ -67,6 +74,7 @@ export const addProductAction = async (
       description,
       status: "pending",
       submittedBy: userEmail,
+      organizationId: orgId,
       userId,
     });
 
@@ -87,8 +95,7 @@ export const addProductAction = async (
 
     return {
       success: false,
-      errors: error,
-      message: "Failed to submit product",
+      message: "An unexpected error occurred",
     };
   }
 };

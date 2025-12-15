@@ -1,20 +1,9 @@
-import {
-  CompassIcon,
-  HomeIcon,
-  LoaderIcon,
-  SparkleIcon,
-  UserIcon,
-} from "lucide-react";
+import { CompassIcon, HomeIcon, LoaderIcon, SparkleIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import { Suspense } from "react";
+import CustomUserButton from "./custom-user-button";
 
 const Logo = () => {
   return (
@@ -77,7 +66,7 @@ export default function Header() {
                 </Button>
 
                 {/* Clerk user */}
-                <UserButton />
+                <CustomUserButton />
               </SignedIn>
             </Suspense>
           </div>
