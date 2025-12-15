@@ -4,6 +4,7 @@ import { FormField } from "../forms/form-field";
 import { Button } from "../ui/button";
 import { addProductAction } from "@/lib/products/product-action";
 import { useActionState } from "react";
+import { cn } from "@/lib/utils";
 
 const initialState = {
   success: false,
@@ -33,6 +34,19 @@ export default function ProductSubmitForm() {
 
   return (
     <form className="space-y-6 flex flex-col gap-2" action={formAction}>
+      {message && (
+        <div
+          className={cn(
+            "p-4 rounded-lg border",
+            success
+              ? "bg-primary/10 border-primary text-primary"
+              : "bg-destructive/10 border-destructive text-destructive"
+          )}
+        >
+          {message}
+        </div>
+      )}
+
       <FormField
         label="ProductName"
         name="name"

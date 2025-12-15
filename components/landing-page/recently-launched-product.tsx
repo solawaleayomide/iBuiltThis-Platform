@@ -7,8 +7,11 @@ import { getRecentlyLaunchedProducts } from "@/lib/products/product-select";
 
 export default async function RecentlyLaunchedProduct() {
   const recentlyLaunchedProducts = await getRecentlyLaunchedProducts();
+
+  // Artificial delay to test skeleton
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   return (
-    <div className="py-20">
+    <section className="py-20">
       <div className="wrapper space-y-12">
         <SectionHeader
           title="Recently Launched"
@@ -29,6 +32,6 @@ export default async function RecentlyLaunchedProduct() {
           />
         )}
       </div>
-    </div>
+    </section>
   );
 }
