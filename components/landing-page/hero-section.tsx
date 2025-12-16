@@ -40,7 +40,7 @@ export default function HeroSection() {
 
           <div className="flex flex-col sm:flex-row gap-4 mb-16">
             <Button asChild size="lg" className="text-base px-8 shadow-lg">
-              <Link href="/">
+              <Link href="/submit">
                 <SparkleIcon className="size-5" /> Share Your Projects
               </Link>
             </Button>
@@ -50,7 +50,7 @@ export default function HeroSection() {
               className="text-base px-8 shadow-lg"
               variant="secondary"
             >
-              <Link href="/">
+              <Link href="/explore">
                 Explore Projects <ArrowRightIcon className="size-5" />
               </Link>
             </Button>
