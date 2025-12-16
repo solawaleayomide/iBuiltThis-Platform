@@ -1,8 +1,11 @@
 import SectionHeader from "@/components/common/section-header";
 import ProductExplorer from "@/components/products/product-explorer";
 import { CompassIcon } from "lucide-react";
+import { getAllProducts } from "@/lib/products/product-select";
 
-export default function ExplorePage() {
+export default async function ExplorePage() {
+  const products = await getAllProducts();
+
   return (
     <div className="py-20">
       <div className="wrapper">
@@ -12,7 +15,7 @@ export default function ExplorePage() {
           icon={CompassIcon}
         />
 
-        <ProductExplorer />
+        <ProductExplorer products={products} />
       </div>
     </div>
   );
