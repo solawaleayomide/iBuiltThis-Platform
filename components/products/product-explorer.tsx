@@ -12,16 +12,40 @@ type Product = InferSelectModel<typeof products>;
 
 export default function ProductExplorer({ products }: { products: Product[] }) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<"newest" | "trending" | "recent">(
+    "newest"
+  );
 
   const filteredProducts = useMemo(() => {
+    const filtered = [...products];
     if (searchQuery.length > 0) {
-      return products.filter((product) => {
-        return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+      return filtered.filter((product) => {
+        product.name.toLowerCase().includes(searchQuery.toLowerCase());
       });
-    } else {
-      return products;
     }
-  }, [searchQuery, products]);
+
+    switch (sortBy) {
+      case "trending":
+        return filtered.sort((a, b) => b.voteCount - a.voteCount);
+
+      case "recent":
+        return filtered.sort(
+          (a, b) =>
+            new Date(b.createdAt || "").getTime() -
+            new Date(a.createdAt || "").getTime()
+        );
+
+      case "newest":
+        return filtered.sort(
+          (a, b) =>
+            new Date(b.createdAt || "").getTime() -
+            new Date(a.createdAt || "").getTime()
+        );
+
+      default:
+        return filtered;
+    }
+  }, [searchQuery, sortBy, products]);
 
   return (
     <div>
@@ -40,10 +64,16 @@ export default function ProductExplorer({ products }: { products: Product[] }) {
         </div>
 
         <div className="flex gap-2">
-          <Button variant="outline">
+          <Button
+            variant={sortBy === "trending" ? "default" : "outline"}
+            onClick={() => setSortBy("trending")}
+          >
             <TrendingUpIcon className="size-4" /> Trending
           </Button>
-          <Button>
+          <Button
+            variant={sortBy === "recent" ? "default" : "outline"}
+            onClick={() => setSortBy("recent")}
+          >
             <ClockIcon className="size-4" /> Recent
           </Button>
         </div>
