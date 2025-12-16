@@ -17,33 +17,28 @@ export default function ProductExplorer({ products }: { products: Product[] }) {
   );
 
   const filteredProducts = useMemo(() => {
-    const filtered = [...products];
+    let result = [...products];
+
     if (searchQuery.length > 0) {
-      return filtered.filter((product) => {
-        product.name.toLowerCase().includes(searchQuery.toLowerCase());
-      });
+      result = result.filter((product) =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     }
 
     switch (sortBy) {
       case "trending":
-        return filtered.sort((a, b) => b.voteCount - a.voteCount);
+        return result.sort((a, b) => b.voteCount - a.voteCount);
 
       case "recent":
-        return filtered.sort(
-          (a, b) =>
-            new Date(b.createdAt || "").getTime() -
-            new Date(a.createdAt || "").getTime()
-        );
-
       case "newest":
-        return filtered.sort(
+        return result.sort(
           (a, b) =>
             new Date(b.createdAt || "").getTime() -
             new Date(a.createdAt || "").getTime()
         );
 
       default:
-        return filtered;
+        return result;
     }
   }, [searchQuery, sortBy, products]);
 
