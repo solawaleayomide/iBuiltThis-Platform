@@ -34,7 +34,7 @@ export default function StatCard({
     },
   ];
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
       {stats.map(({ label, count, color }) => (
         <div className={cn("status-badge-card", color)} key={label}>
           <p className="text-sm text-muted-foreground mb-1">{label}</p>
