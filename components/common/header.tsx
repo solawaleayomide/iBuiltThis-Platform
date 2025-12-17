@@ -127,12 +127,7 @@ function AuthButtons({ mobile }: { mobile?: boolean }) {
       <SignedOut>
         <div className={`flex ${mobile ? "flex-col" : "items-center"} gap-2`}>
           <SignInButton>
-            <Button
-              variant="ghost"
-              className={mobile ? "w-full justify-start" : ""}
-            >
-              Sign In
-            </Button>
+            <Button className={mobile ? "w-full  " : ""}>Sign In</Button>
           </SignInButton>
           <SignUpButton>
             <Button className={mobile ? "w-full" : ""}>Sign Up</Button>
