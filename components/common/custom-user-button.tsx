@@ -6,7 +6,9 @@ import {
   ClerkLoaded,
   ClerkLoading,
 } from "@clerk/nextjs";
-import { BuildingIcon } from "lucide-react";
+import { Building2Icon, BuildingIcon } from "lucide-react";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 export default function CustomUserButton() {
   return (
@@ -38,6 +40,20 @@ export default function CustomUserButton() {
                   },
                 }}
               />
+            </div>
+          </UserButton.UserProfilePage>
+          <UserButton.UserProfilePage
+            label="Admin"
+            url="admin"
+            labelIcon={<Building2Icon className="size-4" />}
+          >
+            <div className="p-4">
+              <h2 className="mb-4 font-semibold">Admin Panel</h2>
+              <Link href="/admin" className="w-full justify-start">
+                <Button size="default" className="w-full justify-start">
+                  Go to Admin Panel
+                </Button>
+              </Link>
             </div>
           </UserButton.UserProfilePage>
         </UserButton>
