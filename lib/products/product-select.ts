@@ -18,6 +18,15 @@ export async function getAllProducts() {
   const productData = await db
     .select()
     .from(products)
+    .orderBy(desc(products.voteCount));
+
+  return productData;
+}
+
+export async function getAllApprovedProducts() {
+  const productData = await db
+    .select()
+    .from(products)
     .where(eq(products.status, "approved"))
     .orderBy(desc(products.voteCount));
 
@@ -27,7 +36,7 @@ export async function getAllProducts() {
 export async function getRecentlyLaunchedProducts() {
   await connection();
 
-  const productData = await getAllProducts();
+  const productData = await getAllApprovedProducts();
   const oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 

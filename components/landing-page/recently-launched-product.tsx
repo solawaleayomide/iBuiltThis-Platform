@@ -9,7 +9,7 @@ export default async function RecentlyLaunchedProduct() {
   const recentlyLaunchedProducts = await getRecentlyLaunchedProducts();
 
   // Artificial delay to test skeleton
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   return (
     <section className="py-20">
       <div className="wrapper space-y-12">
