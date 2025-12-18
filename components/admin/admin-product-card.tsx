@@ -43,7 +43,7 @@ export default function AdminProductCard({ product }: { product: product }) {
             ))}
           </div>
         </CardDescription>
-        <div className="flex gap-x-6 text-sm text-muted-foreground">
+        <div className="flex flex-col lg:flex-row gap-2 lg:gap-6 text-sm text-muted-foreground">
           <p>
             <span className="font-bold">By:</span> {product.submittedBy}
           </p>
